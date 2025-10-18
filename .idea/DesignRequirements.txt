@@ -1,0 +1,19 @@
+This documentation outlines the design requirements for the project.
+
+1) Includes link to HLD & LLD documents  - Lucidchart or any other tool
+   - High-Level Design (HLD): [Insert Link Here]
+   - Low-Level Design (LLD): [Insert Link Here]
+
+2) Business Requirements of the project
+
+3) Non-Functional Requirements of the project ( Also Include Capacity Planning, Performance Requirements, etc.)
+
+4) Database Design Requirements ( Create Data Schema, ER Diagrams, Normalization, Indexing Strategies, Backup and Recovery Plans, etc.)
+
+5) API Design Requirements
+
+6) Microservices Design Requirements ( SOLID Principles, Rest API Design Standards, Microservice Patterns)
+
+7) Security Design Requirements ( Use OAuth 2.0 , Follow OWASP Standards, Least Previlige Principle etc.)
+
+8) Scalability and Availability Design Requirements
