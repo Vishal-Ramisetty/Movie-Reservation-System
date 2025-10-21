@@ -1,4 +1,43 @@
 package com.vrshowbiz.moviebuff.service;
 
+import com.vrshowbiz.moviebuff.dto.request.ReviewRequest;
+import com.vrshowbiz.moviebuff.exception.ReviewNotFoundException;
+import com.vrshowbiz.moviebuff.model.Review;
+import com.vrshowbiz.moviebuff.repository.ReviewRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
 public class ReviewService {
+
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    public Review addReview(ReviewRequest reviewRequest) {
+        Review review = reviewRequest.toReview();
+        reviewRepository.save(review);
+        return review;
+    }
+
+    public Review findReviewById(String reviewId) {
+        return reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new ReviewNotFoundException("Review Not Found with id: " + reviewId));
+    }
+    public Review updateReview(ReviewRequest reviewRequest) {
+        Review updatedReview = reviewRequest.toReview();
+        Review existingReview=findReviewById(updatedReview.getId());
+        existingReview.setRating(updatedReview.getRating());
+        existingReview.setComments(updatedReview.getComments());
+        reviewRepository.save(existingReview);
+        return existingReview;
+    }
+
+    public void deleteReviewById(String reviewId) {
+        Review review=findReviewById(reviewId);
+        reviewRepository.delete(review);
+    }
 }
+
+
