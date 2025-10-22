@@ -20,9 +20,6 @@ public class AdminService {
     @Autowired
     private MovieRepository movieRepository;
 
-    @Autowired
-    private ReviewService reviewService;
-
     public Movie createMovie(MovieRequest movieRequest, MultipartFile imageFile) {
         // Logic to create a new movie
         try {
@@ -37,7 +34,6 @@ public class AdminService {
     public void deleteMovieById(String id) {
         try{
             movieRepository.deleteById(UUID.fromString(id));
-            reviewService.deleteReviewsByMovieId(id);
         }
         catch (MovieNotFoundException e)
         {

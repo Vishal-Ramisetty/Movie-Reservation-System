@@ -17,10 +17,10 @@ public class ReviewResponse {
     String lastModified;
     String starRating;
 
-    public ReviewResponse toReviewResponse(Review review) {
+    public static ReviewResponse toReviewResponse(Review review) {
         return ReviewResponse.builder()
                 .userName(review.getUser().getFirstName()+" "+review.getUser().getLastName())
-                .reviewId(review.getId())
+                .reviewId(review.getId().toString())
                 .content(review.getComments())
 //                .lastModified(review.getUpdatedDate().toString())
                 .starRating(String.valueOf(review.getRating()))

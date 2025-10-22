@@ -37,7 +37,7 @@ public class ReviewService {
     }
     public Review updateReview(ReviewRequest reviewRequest) {
         Review updatedReview = reviewRequest.toReview(new UserService(), new MovieService());
-        Review existingReview=findReviewById(updatedReview.getId());
+        Review existingReview=findReviewById(String.valueOf(updatedReview.getId()));
         existingReview.setRating(updatedReview.getRating());
         existingReview.setComments(updatedReview.getComments());
         reviewRepository.save(existingReview);

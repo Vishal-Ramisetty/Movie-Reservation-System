@@ -61,7 +61,7 @@ public class Movie {
     private Long disLikes=0L;
 
     // MongoDB and JPA relationship mapping commented out - Would require additional configuration
-//    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade =CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade =CascadeType.ALL)
     private List<Review> reviews;
 
 

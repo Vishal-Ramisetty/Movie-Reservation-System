@@ -1,5 +1,8 @@
 ### GET request to example server
-GET https://examples.http-client.intellij.net/get
-    ?generated-in=IntelliJ IDEA
-
+POST http://localhost:8080/api/admin/movies
 ###
+Content-Type: form-data
+
+key: movieRequest
+value: {"title":"Harry Potter","genre":"Fantasy","date":"01-01-2005","rating": "PG13"}
+file: moviePoster; @/path/to/your/image.jpg
