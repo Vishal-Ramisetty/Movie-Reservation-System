@@ -23,7 +23,7 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID movieId;
 
     @Column(nullable =false, unique = true)
     private String movieName;

@@ -25,8 +25,21 @@ public class ReviewService {
         this.movieService=movieService;
     }
 
+
+    public boolean reviewExists(UUID userId, UUID movieId) {
+        return reviewRepository.existsByUser_UserIdAndMovie_MovieId(userId, movieId);
+    }
+
     public Review addReview(ReviewRequest reviewRequest) {
         Review review = reviewRequest.toReview(userService,movieService);
+        try{
+            if (reviewExists(review.getUser().getUserId(), review.getMovie().getMovieId())){
+                throw new IllegalArgumentException("Review already exists for this user and movie");
+            }
+        }
+        catch (IllegalArgumentException e){
+
+        }
         reviewRepository.save(review);
         return review;
     }
@@ -50,7 +63,7 @@ public class ReviewService {
     }
 
     public void deleteReviewsByMovieId(String movieId) {
-        List<Review> reviews=reviewRepository.findByMovieId(UUID.fromString(movieId));
+        List<Review> reviews=reviewRepository.findByMovie_MovieId(UUID.fromString(movieId));
         reviews.stream().forEach(review -> reviewRepository.delete(review));
     }
 }

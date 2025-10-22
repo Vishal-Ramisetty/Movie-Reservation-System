@@ -13,6 +13,8 @@ public interface ReviewRepository extends JpaRepository<Review, String> {
 //    public interface ReviewRepository extends MongoRepository<Review, String>{
     // can Define custom query methods here if needed
 
-    List<Review> findByMovieId(UUID movieId);
+    boolean existsByUser_UserIdAndMovie_MovieId(UUID user_Id, UUID movie_Id);
+
+    List<Review> findByMovie_MovieId(UUID movieId);
 }
 

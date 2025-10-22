@@ -1,2 +1,4 @@
 ### GET request to example server
-GET https://localhost:8080/api/movies/genre?genre=FANTASY
+#GET http://localhost:8080/api/movies/genre?genre=FANTASY
+#GET http://localhost:8080/api/movies/genre?genre=FANTASY?topRated=true
+GET http://localhost:8080/api/movies/genre?genre=FANTASY&sortBy=asc

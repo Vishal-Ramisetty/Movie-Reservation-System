@@ -11,7 +11,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.util.Date;
 
 @Entity
-@Table(name ="reviews")
+@Table(name ="reviews", uniqueConstraints =
+        {@UniqueConstraint(columnNames = {"user_id", "movie_id"})})
 @Getter
 @Setter
 @AllArgsConstructor
@@ -37,12 +38,12 @@ public class Review {
     @LastModifiedDate
     private Date updatedDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
     private User user;
 
     @ManyToOne()
-    @JoinColumn(name = "movie_id", nullable = false)
+    @JoinColumn(name = "movie_id", referencedColumnName = "movieId", nullable = false)
     private Movie movie;
 
 }

@@ -24,7 +24,7 @@ public class MovieResponse {
 
     public static MovieResponse toMovieResponse(Movie movie) {
         List<Review> reviews = movie.getReviews() != null ? movie.getReviews() : new ArrayList<>();
-        return MovieResponse.builder().id(movie.getId().toString()).genre(movie.getGenre().toString())
+        return MovieResponse.builder().id(movie.getMovieId().toString()).genre(movie.getGenre().toString())
                 .releasedDate(movie.getReleasedDate().toString()) // .likes(movie.getLikes().toString())
                 .Rated(movie.getRating().toString()).title(movie.getMovieName())
                 .reviews(reviews.stream()

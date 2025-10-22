@@ -62,15 +62,17 @@ public class MovieController {
                         .toList();
 
         // Sort By rating asc or desc
-        if (sortBy.equals("asc")) {
-            movieResponseList = movieResponseList.stream()
-                    .sorted(Comparator.comparing(MovieResponse::getTitle)).limit(5)
-                    .collect(Collectors.toList());
-        }
-        if (sortBy.equals("desc")) {
-            movieResponseList = movieResponseList.stream()
-                    .sorted(Comparator.comparing(MovieResponse::getTitle).reversed()).limit(5)
-                    .collect(Collectors.toList());
+        if(sortBy!=null) {
+            if (sortBy.equals("asc")) {
+                movieResponseList = movieResponseList.stream()
+                        .sorted(Comparator.comparing(MovieResponse::getTitle)).limit(5)
+                        .collect(Collectors.toList());
+            }
+            if(sortBy.equals("desc")) {
+                movieResponseList = movieResponseList.stream()
+                        .sorted(Comparator.comparing(MovieResponse::getTitle).reversed()).limit(5)
+                        .collect(Collectors.toList());
+            }
         }
 
         // Get the top 5 rated movies in that genre
