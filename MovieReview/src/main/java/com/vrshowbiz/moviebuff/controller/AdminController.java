@@ -4,6 +4,7 @@ import com.vrshowbiz.moviebuff.dto.request.MovieRequest;
 import com.vrshowbiz.moviebuff.dto.response.MovieResponse;
 import com.vrshowbiz.moviebuff.model.Movie;
 import com.vrshowbiz.moviebuff.service.AdminService;
+import jakarta.validation.Valid;
 import org.hibernate.jdbc.Expectation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -19,7 +20,7 @@ public class AdminController {
     AdminService adminService;
 
     @PostMapping(value="/movies", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<MovieResponse> addMovie(@RequestBody MovieRequest movieRequest,
+    public ResponseEntity<MovieResponse> addMovie(@Valid @RequestPart("movieRequest") MovieRequest movieRequest,
                                                   @RequestPart("imageFile") MultipartFile imageFile){
         // Logic to add new movie and handle incorrect json input
         Movie movie= adminService.createMovie(movieRequest, imageFile);
@@ -31,4 +32,5 @@ public class AdminController {
         adminService.deleteMovieById(movieId);
         return ResponseEntity.noContent().build();
     }
+
 }

@@ -22,6 +22,11 @@ public class MovieController {
     @Autowired
     public MovieService movieService;
 
+    @GetMapping("/home")
+    public String home() {
+        return "Welcome to MovieBuff Movie API";
+    }
+
     @GetMapping("/movie")
     public ResponseEntity<MovieResponse> getMovie(@RequestParam String title) {
         return ResponseEntity.ok()

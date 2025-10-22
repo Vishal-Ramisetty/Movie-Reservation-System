@@ -8,22 +8,21 @@ import com.vrshowbiz.moviebuff.model.User;
 import com.vrshowbiz.moviebuff.service.MovieService;
 import com.vrshowbiz.moviebuff.service.UserService;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Optional;
 
-@Component
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReviewRequest {
 
     private UserService userService;
     private MovieService movieService;
-
-    @Autowired
-    public ReviewRequest(UserService userService, MovieService movieService) {
-        this.userService = userService;
-        this.movieService = movieService;
-    }
 
     @NotNull(message = "Movie ID is mandatory to review a movie")
     private String movieId;
@@ -36,9 +35,10 @@ public class ReviewRequest {
 
     private String comment;
 
-    public Review toReview() throws UserNotFoundException, MovieNotFoundException {
+    public Review toReview(UserService userService, MovieService movieService)
+            throws UserNotFoundException, MovieNotFoundException {
         Optional<User> user = userService.findUserById(userId);
-        Optional<Movie> movie = movieService.findMovieById(userId);
+        Optional<Movie> movie = movieService.findMovieById(movieId);
         if (user.isEmpty()) {
             throw new UserNotFoundException("User with ID " + userId + " not found");
         }

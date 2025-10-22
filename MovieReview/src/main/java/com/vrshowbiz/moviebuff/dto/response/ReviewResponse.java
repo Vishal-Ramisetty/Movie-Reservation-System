@@ -22,7 +22,7 @@ public class ReviewResponse {
                 .userName(review.getUser().getFirstName()+" "+review.getUser().getLastName())
                 .reviewId(review.getId())
                 .content(review.getComments())
-                .lastModified(review.getUpdatedDate().toString())
+//                .lastModified(review.getUpdatedDate().toString())
                 .starRating(String.valueOf(review.getRating()))
                 .build();
     }

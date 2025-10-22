@@ -1,8 +1,8 @@
 package com.vrshowbiz.moviebuff.service;
 
+import com.vrshowbiz.moviebuff.dto.request.UserRequest;
 import com.vrshowbiz.moviebuff.model.User;
 import com.vrshowbiz.moviebuff.repository.UserRepository;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerUser(User user){
-        return userRepository.save(user);
+    public User registerUser(UserRequest userRequest){
+        return userRepository.save(userRequest.toUser());
     }
 
     public Optional<User> findUserById(String userId) {

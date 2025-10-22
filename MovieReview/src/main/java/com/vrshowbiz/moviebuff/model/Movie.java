@@ -1,8 +1,11 @@
 package com.vrshowbiz.moviebuff.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,13 +16,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @Builder
-@Table(name ="movie")
+@Table(name ="movies")
 public class Movie {
 
     // Must Have Fields
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable =false, unique = true)
@@ -31,12 +34,14 @@ public class Movie {
 
     //Good to Have
 
-    @Lob
-    @Column(nullable =false)
-    private byte[] posterImage64;
 
-    @Column(name = "image_filename", length = 255)
-    private String imageName;
+    // Removed to have file system storage/ S3
+//    @Lob
+//    @Column(nullable =false)
+//    private byte[] posterImageBytes;
+
+    @Column(name = "image_filename", length = 255, nullable = true)
+    private String imageMetaData;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -44,14 +49,16 @@ public class Movie {
 
     // Nice to Have
 
+    @Column(nullable = false)
+    @PastOrPresent(message = "Released Date must be in the past or present")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate releasedDate;
+
     @Column(nullable = true)
-    private Date releasedDate;
+    private Long likes=0L;
 
-    @Column
-    private volatile Long likes=0L;
-
-    @Column
-    private volatile Long disLikes=0L;
+    @Column(nullable = true)
+    private Long disLikes=0L;
 
     // MongoDB and JPA relationship mapping commented out - Would require additional configuration
 //    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade =CascadeType.ALL)

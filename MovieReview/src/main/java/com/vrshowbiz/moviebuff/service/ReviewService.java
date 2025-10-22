@@ -12,11 +12,20 @@ import java.util.Optional;
 @Service
 public class ReviewService {
 
-    @Autowired
+
     private ReviewRepository reviewRepository;
+    private UserService userService;
+    private MovieService movieService;
+
+    @Autowired
+    public ReviewService(ReviewRepository reviewRepository,UserService userService,MovieService movieService) {
+        this.reviewRepository = reviewRepository;
+        this.userService=userService;
+        this.movieService=movieService;
+    }
 
     public Review addReview(ReviewRequest reviewRequest) {
-        Review review = reviewRequest.toReview();
+        Review review = reviewRequest.toReview(userService,movieService);
         reviewRepository.save(review);
         return review;
     }
@@ -26,7 +35,7 @@ public class ReviewService {
                 .orElseThrow(() -> new ReviewNotFoundException("Review Not Found with id: " + reviewId));
     }
     public Review updateReview(ReviewRequest reviewRequest) {
-        Review updatedReview = reviewRequest.toReview();
+        Review updatedReview = reviewRequest.toReview(new UserService(), new MovieService());
         Review existingReview=findReviewById(updatedReview.getId());
         existingReview.setRating(updatedReview.getRating());
         existingReview.setComments(updatedReview.getComments());

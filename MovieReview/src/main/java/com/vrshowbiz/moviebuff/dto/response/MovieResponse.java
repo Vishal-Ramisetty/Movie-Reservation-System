@@ -19,7 +19,7 @@ public class MovieResponse {
 
     public MovieResponse toMovieResponse(Movie movie) {
         return MovieResponse.builder().id(movie.getId().toString()).genre(movie.getGenre().toString())
-                        .likes(movie.getLikes().toString()).releasedDate(movie.getReleasedDate().toString())
+                .releasedDate(movie.getReleasedDate().toString()) // .likes(movie.getLikes().toString())
                                 .Rated(movie.getRating().toString()).title(movie.getMovieName())
                                         .build();
     }

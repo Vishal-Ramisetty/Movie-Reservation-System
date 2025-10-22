@@ -38,11 +38,20 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ImageProcessingException.class)
-    public ResponseEntity<?> handleImageProcessingException(Exception ex) {
+    public ResponseEntity<?> handleImageProcessingException(ImageProcessingException ex) {
         ExceptionPayload response = ExceptionPayload.builder().message(ex.getMessage())
                 .status(HttpStatus.NOT_FOUND).timestamp(System.currentTimeMillis())
                 .success(false)
                 .build();
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<?> handleGenericException(Exception ex) {
+//        ExceptionPayload response = ExceptionPayload.builder().message(ex.getMessage())
+//                .status(HttpStatus.BAD_REQUEST).timestamp(System.currentTimeMillis())
+//                .success(false)
+//                .build();
+//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+//    }
 }

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -28,6 +29,7 @@ public class User {
     private String phoneNumber;
 
     @Email(message = "Enter the email in proper format")
+    @Column(nullable = false, unique = true)
     private String email;
 
     @NotBlank
@@ -41,6 +43,9 @@ public class User {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+
+    @CreatedDate
+    private LocalDate createdDate;
 
     @Override
     public String toString() {
