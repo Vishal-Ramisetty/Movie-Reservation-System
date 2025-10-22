@@ -7,7 +7,8 @@ import com.vrshowbiz.moviebuff.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ReviewService {
@@ -46,6 +47,11 @@ public class ReviewService {
     public void deleteReviewById(String reviewId) {
         Review review=findReviewById(reviewId);
         reviewRepository.delete(review);
+    }
+
+    public void deleteReviewsByMovieId(String movieId) {
+        List<Review> reviews=reviewRepository.findByMovieId(UUID.fromString(movieId));
+        reviews.stream().forEach(review -> reviewRepository.delete(review));
     }
 }
 

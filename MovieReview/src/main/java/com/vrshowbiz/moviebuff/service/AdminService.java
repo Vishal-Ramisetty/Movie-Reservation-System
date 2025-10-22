@@ -3,6 +3,8 @@ package com.vrshowbiz.moviebuff.service;
 import com.vrshowbiz.moviebuff.dto.request.MovieRequest;
 import com.vrshowbiz.moviebuff.dto.response.MovieResponse;
 import com.vrshowbiz.moviebuff.exception.ImageProcessingException;
+import com.vrshowbiz.moviebuff.exception.MovieNotFoundException;
+import com.vrshowbiz.moviebuff.exception.ReviewNotFoundException;
 import com.vrshowbiz.moviebuff.model.Movie;
 import com.vrshowbiz.moviebuff.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class AdminService {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private ReviewService reviewService;
+
     public Movie createMovie(MovieRequest movieRequest, MultipartFile imageFile) {
         // Logic to create a new movie
         try {
@@ -30,6 +35,16 @@ public class AdminService {
     }
 
     public void deleteMovieById(String id) {
-        movieRepository.deleteById(UUID.fromString(id));
+        try{
+            movieRepository.deleteById(UUID.fromString(id));
+            reviewService.deleteReviewsByMovieId(id);
+        }
+        catch (MovieNotFoundException e)
+        {
+            throw new MovieNotFoundException("Movie Not Found with id: " + id);
+        }
+        catch (ReviewNotFoundException e){
+            throw new ReviewNotFoundException("No Reviews found for the movie with id: " + id);
+        }
     }
 }

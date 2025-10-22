@@ -6,7 +6,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -62,6 +62,8 @@ public class Movie {
 
     // MongoDB and JPA relationship mapping commented out - Would require additional configuration
 //    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY, cascade =CascadeType.ALL)
-//    private List<Review> reviews;
+    private List<Review> reviews;
+
+
 
 }

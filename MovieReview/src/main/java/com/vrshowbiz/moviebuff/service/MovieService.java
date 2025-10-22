@@ -36,5 +36,4 @@ public class MovieService {
         return movieResponseList;
     }
 
-
 }

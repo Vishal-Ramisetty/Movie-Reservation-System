@@ -5,8 +5,6 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
@@ -16,7 +14,9 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import java.util.Date;
 
 
-@Entity
+// Ignore this Class that uses MongoDB as review storage
+
+@Document(collection = "reviews")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,9 +24,9 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @EnableMongoAuditing
-public class Review {
+public class Reviews {
 
-    @Id
+    @MongoId
     private String id;
 
     @Min(1)
@@ -43,12 +43,13 @@ public class Review {
     @LastModifiedDate
     private Date updatedDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
+    // This relation might not work b/n SQL & MongoDB
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
     private User user;
 
-    @ManyToOne()
-    @JoinColumn(name = "movie_id", nullable = false)
+    //    @ManyToOne()
+//    @JoinColumn(name = "movie_id", nullable = false)
     private Movie movie;
 
 }

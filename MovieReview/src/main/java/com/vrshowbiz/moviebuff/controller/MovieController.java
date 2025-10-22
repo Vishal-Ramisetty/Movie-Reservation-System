@@ -27,7 +27,7 @@ public class MovieController {
         return "Welcome to MovieBuff Movie API";
     }
 
-    @GetMapping("/movie")
+    @GetMapping("/search")
     public ResponseEntity<MovieResponse> getMovie(@RequestParam String title) {
         return ResponseEntity.ok()
                 .body((new MovieResponse()).toMovieResponse(movieService.findMovieByTitle(title)));
